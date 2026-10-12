@@ -58,6 +58,26 @@ class TestDeliverableArtifacts:
         assert os.path.getsize(css_path) > 2000, "styles.css is incomplete"
         assert os.path.getsize(js_path) > 5000, "dashboard.js is incomplete"
 
+    def test_data_folder_artifacts_exist(self):
+        data_dir = os.path.join(BASE_DIR, "data")
+        assert os.path.exists(data_dir), "data/ directory missing"
+        expected_files = [
+            "experiment_results.csv",
+            "regression_results.csv",
+            "simulation_results.csv",
+            "data_quality_findings.csv",
+            "portfolio_summary.json",
+            "budget_overrun_data.json",
+            "fpa_forecast_data.json",
+            "liquidity_stress_data.json",
+            "data_quality_data.json"
+        ]
+        for f in expected_files:
+            file_path = os.path.join(data_dir, f)
+            assert os.path.exists(file_path), f"Missing required file in data/: {f}"
+            assert os.path.getsize(file_path) > 10, f"File in data/ is empty: {f}"
+
+
 
 class TestCSVDataContracts:
     """Validates structure, non-emptiness, and types of generated CSV artifacts."""
@@ -173,10 +193,10 @@ class TestHTMLLinkAndAssetIntegrity:
             assert os.path.exists(resolved_img), f"Broken image in {html_file}: {src} (resolved to {resolved_img})"
 
     @pytest.mark.parametrize("html_file, required_ids", [
-        ("projects/budget-overrun.html", ["sim-budget-form", "p1-units", "p1-capacity", "p1-threshold", "p1-chart-container"]),
-        ("projects/fpa-forecast.html", ["sim-fpa-form", "p2-horizon", "p2-hc-shock", "p2-blend-weight", "p2-chart-container"]),
-        ("projects/liquidity-stress.html", ["sim-liquidity-form", "p3-buffer", "p3-scenario", "p3-stress-mult", "p3-chart-container"]),
-        ("projects/data-quality.html", ["sim-data-quality-form", "p4-volume", "p4-prevalence", "p4-contra", "p4-chart-container"]),
+        ("projects/budget-overrun.html", ["sim-budget-form", "p1-units", "p1-capacity", "p1-threshold", "p1-chart-container", "btn-p1-download"]),
+        ("projects/fpa-forecast.html", ["sim-fpa-form", "p2-horizon", "p2-hc-shock", "p2-blend-weight", "p2-chart-container", "btn-p2-download"]),
+        ("projects/liquidity-stress.html", ["sim-liquidity-form", "p3-buffer", "p3-scenario", "p3-stress-mult", "p3-chart-container", "btn-p3-download"]),
+        ("projects/data-quality.html", ["sim-data-quality-form", "p4-volume", "p4-prevalence", "p4-contra", "p4-chart-container", "btn-p4-download"]),
     ])
     def test_simulator_contract_ids_present(self, html_file, required_ids):
         full_path = os.path.join(BASE_DIR, html_file)
