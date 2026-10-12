@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 # Top-1% Enterprise Quantitative Finance Analytics Suite
 ### Machine Learning, Econometric Regression, Stress Simulation & Executive HTML Dashboard Lab
+=======
+# Master Quantitative Finance Analytics & Machine Learning Portfolio
+>>>>>>> 3d8600bf4737fd63a76ad23ac86b6d07b07e218a
 
 **Lead Architect & Financial Quantitative Specialist:** Bhupesh Chandra Dimri  
 **Email:** bhupesh7cd@gmail.com  
